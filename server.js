@@ -6,11 +6,11 @@ const dotenv = require('dotenv');
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 
-const main = () => {
+const main = async() => {
   const app = express();
   app.use(express.json());
 
-  database.initDatabase();
+  await database.initDatabase();
   router.initRoutes(app);
   app.use(error)
   app.listen(PORT, () => {

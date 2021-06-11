@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const config = require("config");
-
 exports.initDatabase = async () => {
   try {
     await mongoose.connect(process.env.mongoURI, {
