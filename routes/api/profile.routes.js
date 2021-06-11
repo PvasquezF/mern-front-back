@@ -7,16 +7,21 @@ const {
 const router = express.Router();
 
 const {
+  getProfiles,
   getMyProfile,
+  getProfileByUserId,
   createUpdateProfile,
 } = require("../../controllers/profile.controller");
 
-router.post(
-  "/",
-  auth,
-  validate(CreateUpdateProfileValidations),
-  createUpdateProfile
-);
+router
+  .get("/", auth, getProfiles)
+  .post(
+    "/",
+    auth,
+    validate(CreateUpdateProfileValidations),
+    createUpdateProfile
+  );
 router.get("/me", auth, getMyProfile);
+router.get("/user/:user_id", auth, getProfileByUserId);
 
 module.exports = router;
