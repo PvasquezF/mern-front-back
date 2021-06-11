@@ -3,6 +3,7 @@ const { matchedData } = require("express-validator");
 const ErrorResponse = require("../utils/ErrorResponse");
 const Profile = require("../models/Profile.model");
 const User = require("../models/User.model");
+const mongoose = require("mongoose");
 
 exports.getProfiles = asyncHandler(async (req, res, next) => {
   const profiles = await Profile.find().populate("user", ["name", "avatar"]);
@@ -60,6 +61,47 @@ exports.createUpdateProfile = asyncHandler(async (req, res, next) => {
     profile.overwrite(data);
   }
   profile = await profile.save();
+  return res.status(200).json({
+    result: true,
+    data: profile,
+  });
+});
+
+exports.deleteProfile = asyncHandler(async (req, res, next) => {
+  await Profile.findOneAndRemove({ user: req.user._id });
+  await User.findByIdAndRemove({ _id: req.user._id });
+  return res.status(200).json({
+    result: true,
+    data: { message: `Usuario eliminado correctamente.` },
+  });
+});
+
+exports.updateExperience = asyncHandler(async (req, res, next) => {
+  const data = matchedData(req);
+  const profile = await Profile.findOne({
+    user: req.user._id,
+  });
+  for (const exp of data.experience) {
+    profile.experience.unshift(exp);
+  }
+  await profile.save();
+  return res.status(200).json({
+    result: true,
+    data: profile,
+  });
+});
+
+exports.deleteExperience = asyncHandler(async (req, res, next) => {
+  const profile = await Profile.findOneAndUpdate(
+    {
+      user: req.user._id,
+    },
+    {
+      $pull: {
+        experience: { _id: req.params.experience_id },
+      },
+    }
+  );
   return res.status(200).json({
     result: true,
     data: profile,

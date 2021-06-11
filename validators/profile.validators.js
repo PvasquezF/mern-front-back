@@ -20,3 +20,13 @@ module.exports.CreateUpdateProfileValidations = [
   check("social.linkedin").optional(true).notEmpty(),
   check("social.instagram").optional(true).notEmpty(),
 ];
+
+module.exports.ExperienceProfileValidations = [
+  check("experience.*.title").optional(false).notEmpty(),
+  check("experience.*.company").optional(false).notEmpty(),
+  check("experience.*.location").optional(true).notEmpty(),
+  check("experience.*.from").optional(false).notEmpty(),
+  check("experience.*.to").optional(true).notEmpty(),
+  check("experience.*.current").optional(true).notEmpty(),
+  check("experience.*.description").optional(true).notEmpty(),
+];
