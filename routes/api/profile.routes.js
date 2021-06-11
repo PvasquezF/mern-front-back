@@ -4,6 +4,7 @@ const auth = require("../../middleware/auth.middleware");
 const {
   CreateUpdateProfileValidations,
   ExperienceProfileValidations,
+  EducationProfileValidations,
 } = require("../../validators/profile.validators");
 const router = express.Router();
 
@@ -15,6 +16,8 @@ const {
   deleteProfile,
   updateExperience,
   deleteExperience,
+  updateEducation,
+  deleteEducation,
 } = require("../../controllers/profile.controller");
 
 router
@@ -35,6 +38,14 @@ router
     updateExperience
   )
   .delete("/experience/:experience_id", auth, deleteExperience);
+router
+  .put(
+    "/education",
+    auth,
+    validate(EducationProfileValidations),
+    updateEducation
+  )
+  .delete("/education/:education_id", auth, deleteEducation);
 router.get("/user/:user_id", auth, getProfileByUserId);
 
 module.exports = router;

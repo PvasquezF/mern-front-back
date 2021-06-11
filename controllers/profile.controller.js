@@ -100,7 +100,41 @@ exports.deleteExperience = asyncHandler(async (req, res, next) => {
       $pull: {
         experience: { _id: req.params.experience_id },
       },
-    }
+    },
+    { new: true }
+  );
+  return res.status(200).json({
+    result: true,
+    data: profile,
+  });
+});
+
+exports.updateEducation = asyncHandler(async (req, res, next) => {
+  const data = matchedData(req);
+  const profile = await Profile.findOne({
+    user: req.user._id,
+  });
+  for (const exp of data.education) {
+    profile.education.unshift(exp);
+  }
+  await profile.save();
+  return res.status(200).json({
+    result: true,
+    data: profile,
+  });
+});
+
+exports.deleteEducation = asyncHandler(async (req, res, next) => {
+  const profile = await Profile.findOneAndUpdate(
+    {
+      user: req.user._id,
+    },
+    {
+      $pull: {
+        education: { _id: req.params.education_id },
+      },
+    },
+    { new: true }
   );
   return res.status(200).json({
     result: true,
