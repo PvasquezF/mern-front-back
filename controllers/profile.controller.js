@@ -4,6 +4,7 @@ const ErrorResponse = require("../utils/ErrorResponse");
 const Profile = require("../models/Profile.model");
 const User = require("../models/User.model");
 const mongoose = require("mongoose");
+const request = require("request");
 
 exports.getProfiles = asyncHandler(async (req, res, next) => {
   const profiles = await Profile.find().populate("user", ["name", "avatar"]);
@@ -139,5 +140,36 @@ exports.deleteEducation = asyncHandler(async (req, res, next) => {
   return res.status(200).json({
     result: true,
     data: profile,
+  });
+});
+
+exports.getGithubData = asyncHandler(async (req, res, next) => {
+  const username = req.params.username;
+  const params = [
+    `per_page=5`,
+    `sort=created:asc`,
+    `client_id=${process.env.GITHUB_CLIENTID}`,
+    `client_secret=${process.env.GITHUB_CLIENTSECRET}`,
+  ].join(`&`);
+
+  const options = {
+    uri: `https://api.github.com/users/${username}/repos?${params}`,
+    method: "GET",
+    headers: { "user-agent": "node.js" },
+  };
+
+  request(options, (error, response, body) => {
+    if (error) {
+      return next(error);
+    }
+    if (response.statusCode !== 200) {
+      return next(
+        new ErrorResponse([`No se ha encontrado el perfil ingresado.`], 404)
+      );
+    }
+    return res.status(200).json({
+      result: true,
+      data: JSON.parse(body),
+    });
   });
 });
