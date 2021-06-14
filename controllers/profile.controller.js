@@ -16,15 +16,10 @@ exports.getProfiles = asyncHandler(async (req, res, next) => {
 });
 
 exports.getProfileByUserId = asyncHandler(async (req, res, next) => {
-  const profile = await Profile.findOne({ user: req.params.user_id })
-    .populate("user", ["name", "avatar"])
-    .catch((e) => {
-      if (e.kind === "ObjectId") {
-        return next(new ErrorResponse([`No existe el perfil solicitado`], 422));
-      } else {
-        return next(e);
-      }
-    });
+  const profile = await Profile.findOne({ user: req.params.user_id }).populate(
+    "user",
+    ["name", "avatar"]
+  );
   if (!profile) {
     return next(new ErrorResponse([`No existe el perfil solicitado`], 422));
   }
