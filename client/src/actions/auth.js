@@ -8,6 +8,7 @@ import {
   AUTH_ERROR,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
+  LOGOUT,
 } from "./types";
 
 import setAuthToken from "../utils/setAuthToken";
@@ -83,5 +84,13 @@ export const login = (email, password) => {
         type: LOGIN_FAIL,
       });
     }
+  };
+};
+
+export const logout = () => {
+  return async function (dispatch) {
+    dispatch({
+      type: LOGOUT,
+    });
   };
 };
