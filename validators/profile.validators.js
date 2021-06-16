@@ -26,7 +26,7 @@ module.exports.ExperienceProfileValidations = [
   check("experience.*.company").optional(false).notEmpty(),
   check("experience.*.location").optional(true).notEmpty(),
   check("experience.*.from").optional(false).notEmpty(),
-  check("experience.*.to").optional(true).notEmpty(),
+  check("experience.*.to").optional(true),
   check("experience.*.current").optional(true).notEmpty(),
   check("experience.*.description").optional(true).notEmpty(),
 ];
@@ -36,7 +36,7 @@ module.exports.EducationProfileValidations = [
   check("education.*.degree").optional(false).notEmpty(),
   check("education.*.fieldofstudy").optional(false).notEmpty(),
   check("education.*.from").optional(false).notEmpty(),
-  check("education.*.to").optional(true).notEmpty(),
+  check("education.*.to").optional(true),
   check("education.*.current").optional(true).notEmpty(),
   check("education.*.description").optional(true).notEmpty(),
 ];
