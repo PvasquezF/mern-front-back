@@ -3,6 +3,7 @@ const { matchedData } = require("express-validator");
 const ErrorResponse = require("../utils/ErrorResponse");
 const Profile = require("../models/Profile.model");
 const User = require("../models/User.model");
+const Post = require("../models/Post.model");
 const mongoose = require("mongoose");
 const request = require("request");
 
@@ -64,6 +65,7 @@ exports.createUpdateProfile = asyncHandler(async (req, res, next) => {
 });
 
 exports.deleteProfile = asyncHandler(async (req, res, next) => {
+  await Post.deleteMany({ user: req.user._id });
   await Profile.findOneAndRemove({ user: req.user._id });
   await User.findByIdAndRemove({ _id: req.user._id });
   return res.status(200).json({
