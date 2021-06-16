@@ -5,12 +5,15 @@ import { getCurrentProfile } from "../../actions/profile";
 import Spinner from "../layout/Spinner";
 import { Link } from "react-router-dom";
 import DashboarActions from "./DashboarActions";
+import Experience from "./Experience";
+import Education from "./Education";
 
 const Dashboard = ({
   getCurrentProfile,
   auth: { user },
   profile: { profile, loading },
 }) => {
+  console.log(profile)
   useEffect(() => {
     getCurrentProfile();
   }, []);
@@ -26,6 +29,8 @@ const Dashboard = ({
       {profile !== null ? (
         <Fragment>
           <DashboarActions />
+          <Experience experience={profile.experience} />
+          <Education education={profile.education} />
         </Fragment>
       ) : (
         <Fragment>
@@ -44,8 +49,10 @@ Dashboard.propTypes = {
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
 };
+
 const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
 });
+
 export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
