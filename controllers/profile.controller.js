@@ -144,7 +144,7 @@ exports.getGithubData = asyncHandler(async (req, res, next) => {
   const username = req.params.username;
   const params = [
     `per_page=5`,
-    `sort=created:asc`,
+    `sort=updated:asc`,
     `client_id=${process.env.GITHUB_CLIENTID}`,
     `client_secret=${process.env.GITHUB_CLIENTSECRET}`,
   ].join(`&`);

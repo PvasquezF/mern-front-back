@@ -36,6 +36,7 @@ const profile = (state = initialState, action) => {
         ...state,
         error: payload,
         loading: false,
+        profile: null
       };
     case CLEAR_PROFILE:
       return {
@@ -47,7 +48,7 @@ const profile = (state = initialState, action) => {
     case GET_REPOS:
       return {
         ...state,
-        profile: payload,
+        repos: payload,
         loading: false,
       };
 
