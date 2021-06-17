@@ -12,6 +12,7 @@ import AddEducation from "./components/profile-forms/AddEducation";
 import Profiles from "./components/profiles/Profiles";
 import Profile from "./components/profile/Profile";
 import Alert from "./components/layout/Alert";
+import Posts from "./components/posts/Posts"
 import PrivateRoute from "./components/routing/PrivateRoute";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -65,6 +66,11 @@ const App = () => {
                 exact
                 path="/add-education"
                 component={AddEducation}
+              ></PrivateRoute>
+              <PrivateRoute
+                exact
+                path="/posts"
+                component={Posts}
               ></PrivateRoute>
             </Switch>
           </section>
