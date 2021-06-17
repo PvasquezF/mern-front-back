@@ -9,6 +9,8 @@ import CreateProfile from "./components/profile-forms/CreateProfile";
 import EditProfile from "./components/profile-forms/EditProfile";
 import AddExperience from "./components/profile-forms/AddExperience";
 import AddEducation from "./components/profile-forms/AddEducation";
+import Profiles from "./components/profiles/Profiles";
+import Profile from "./components/profile/Profile";
 import Alert from "./components/layout/Alert";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -37,6 +39,8 @@ const App = () => {
             <Switch>
               <Route exact path="/register" component={Register}></Route>
               <Route exact path="/login" component={Login}></Route>
+              <Route exact path="/profiles" component={Profiles}></Route>
+              <Route exact path="/profile/:id" component={Profile}></Route>
               <PrivateRoute
                 exact
                 path="/dashboard"

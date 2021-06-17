@@ -22,7 +22,7 @@ const {
 } = require("../../controllers/profile.controller");
 
 router
-  .get("/", auth, getProfiles)
+  .get("/", getProfiles)
   .post(
     "/",
     auth,
@@ -48,6 +48,6 @@ router
   )
   .delete("/education/:education_id", auth, deleteEducation);
 router.get("/github/:username", getGithubData);
-router.get("/user/:user_id", auth, getProfileByUserId);
+router.get("/user/:user_id", getProfileByUserId);
 
 module.exports = router;
