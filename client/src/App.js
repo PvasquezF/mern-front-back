@@ -12,7 +12,8 @@ import AddEducation from "./components/profile-forms/AddEducation";
 import Profiles from "./components/profiles/Profiles";
 import Profile from "./components/profile/Profile";
 import Alert from "./components/layout/Alert";
-import Posts from "./components/posts/Posts"
+import Posts from "./components/posts/Posts";
+import Post from "./components/post/Post";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -71,6 +72,11 @@ const App = () => {
                 exact
                 path="/posts"
                 component={Posts}
+              ></PrivateRoute>
+              <PrivateRoute
+                exact
+                path="/post/:id"
+                component={Post}
               ></PrivateRoute>
             </Switch>
           </section>
